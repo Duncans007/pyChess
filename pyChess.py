@@ -87,14 +87,14 @@ def valid_moves(board, piece_type, piece_location, player):
 
 #Valid moves for the horse
     elif piece_type == "h":
-        move_array.append(str(int(px)+2)+str(int(py)+1))
-        move_array.append(str(int(px)+2)+str(int(py)-1))
-        move_array.append(str(int(px)-2)+str(int(py)+1))
-        move_array.append(str(int(px)-2)+str(int(py)-1))
-        move_array.append(str(int(px)+1)+str(int(py)+2))
-        move_array.append(str(int(px)-1)+str(int(py)+2))
-        move_array.append(str(int(px)+1)+str(int(py)-2))
-        move_array.append(str(int(px)-1)+str(int(py)-2))
+        move_array.append(strout(px+2, py+1))
+        move_array.append(strout(px+2, py-1))
+        move_array.append(strout(px-2, py+1))
+        move_array.append(strout(px-2, py-1))
+        move_array.append(strout(px+1, py+2))
+        move_array.append(strout(px-1, py+2))
+        move_array.append(strout(px+1, py-2))
+        move_array.append(strout(px-1, py-2))
 
 #Valid moves for the bishop
     elif piece_type == "b":
@@ -112,14 +112,14 @@ def valid_moves(board, piece_type, piece_location, player):
 
 #Valid moves for the King
     elif piece_type == "k":
-        move_array.append(str(int(px)+1)+str(int(py)+0))
-        move_array.append(str(int(px)+1)+str(int(py)+1))
-        move_array.append(str(int(px)+0)+str(int(py)+1))
-        move_array.append(str(int(px)-1)+str(int(py)+1))
-        move_array.append(str(int(px)-1)+str(int(py)+0))
-        move_array.append(str(int(px)-1)+str(int(py)-1))
-        move_array.append(str(int(px)+0)+str(int(py)-1))
-        move_array.append(str(int(px)+1)+str(int(py)-1))
+        move_array.append(strout(px+1, py+0))
+        move_array.append(strout(px+1, py+1))
+        move_array.append(strout(px+0, py+1))
+        move_array.append(strout(px-1, py+1))
+        move_array.append(strout(px-1, py+0))
+        move_array.append(strout(px-1, py-1))
+        move_array.append(strout(px+0, py-1))
+        move_array.append(strout(px+1, py-1))
 
 #Valid moves for the queen
     elif piece_type == "q":
