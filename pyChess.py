@@ -1,4 +1,6 @@
-import math
+#Pychess
+#Entirely text-based chess
+
 import numpy as np
 
 #Draw board function
@@ -16,18 +18,16 @@ def draw_board(board):
 #Change turn function
 def change_turn(turn):
     if turn == "w":
-        turn = "b"
-        print("Turn: Black")
+        return "b"
     elif turn == "b":
-        turn = "w"
-        print("Turn: White")
-    return turn
+        return "w"
 
 
 #IO function for perpetual piece selection until valid
 def player_select_piece(board, player):
     while True:
-        selection = input("Select Piece: ")
+        print("Turn: "+player)
+        selection = input("Select Piece (xy): ")
 
         if board[selection] != "  ":
             if board[selection][0] == player:
@@ -162,13 +162,13 @@ def valid_moves(board, piece_type, piece_location, player):
     #double check for off-board
     for i in range( len(move_array) - 1, -1, -1):
         x = move_array[i]
-        if int(x[0])>8:
+        if int(x[0]) > 8:
             move_array.pop(move_array.index(x))
-        if int(x[0])<1:
+        if int(x[0]) < 1:
             move_array.pop(move_array.index(x))
-        if int(x[1])>8:
+        if int(x[1]) > 8:
             move_array.pop(move_array.index(x))
-        if int(x[1])<1:
+        if int(x[1]) < 1:
             move_array.pop(move_array.index(x))
 
     #remove non-unique values
@@ -188,13 +188,20 @@ def player_select_move(board, piece_location, player):
         print("Invalid move please try again")
         return "null"
     else:
-        board[selection] = board[piece_location]
-        board[piece_location] = "  "
+        board = make_move(board, piece_location, selection)
         if king_safe(board, player) == True:
             return board
         else:
             print("You are still in Check")
             return "null"
+
+
+#Short function that returns the board dict with the piece moved
+def make_move(board, piece_location, move_to_space):
+    board[move_to_space] = board[piece_location]
+    board[piece_location] = "  "
+    return board
+
 
 #Check for check at the end of every turn and do not allow move if it results in check.
 def king_safe(board, player):
@@ -206,7 +213,6 @@ def king_safe(board, player):
     #check all lines of sight to the king with large pieces
     #run the king's spot as each of the different pieces
     for x in ["c","h","b","q"]:
-        print("x")
         possible_attacks = valid_moves(board,x,king_space,player)
         for y in possible_attacks:
             if board[y][1] == x and board[y][0] != player:
@@ -224,14 +230,22 @@ def king_safe(board, player):
 
     return True
 
-#TODO: Add checkmate!@!!!!
-def player_test_win(board, player):
+
+#Check if player is in checkmate
+def is_player_in_checkmate(board, player):
+    if not king_safe(board, player):
+        for space, piece in board.items():
+            if piece[0] == player:
+                possible_moves = valid_moves(board, piece[1], space, player)
+                for x in possible_moves:
+                    possible_outcome = make_move(board, space, x)
+                    if king_safe(possible_outcome, player):
+                        return True
     return False
 
-player_win = False
-player_turn = "b"
 
 #Initial board setup
+player_turn = "b"
 board_dict = {
     "11": "wc",
     "12": "wp",
@@ -306,11 +320,20 @@ board_dict = {
     "88": "bc",
 }
 
+
 #Main game loop
-while not player_win:
+while True:
+
+    player_turn = change_turn(player_turn)
+
+    if is_player_in_checkmate(board_dict, player_turn):
+        if player_turn == "b":
+            print("Checkmate for Black, White wins!")
+        elif player_turn == "w":
+            print("Checkmate for White, Black wins!")
+        break
 
     draw_board(board_dict)
-    player_turn = change_turn(player_turn)
 
     while True:
         player_selection = player_select_piece(board_dict, player_turn)
@@ -318,6 +341,3 @@ while not player_win:
         if player_move_select != "null":
             board_dict = player_move_select
             break
-
-    if player_test_win(board_dict, player_turn):
-        break
