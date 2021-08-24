@@ -1,4 +1,5 @@
 from extra_funcs import strout
+import numpy as np
 
 def valid_moves(board, piece_type, piece_location, player):
     move_array = []
