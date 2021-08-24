@@ -1,12 +1,12 @@
 #Pychess
 #Entirely text-based chess
 
-from change_turn import *
-from draw_board import *
-from is_player_in_checkmate import *
-from player_select_move import *
-from player_select_piece import *
-
+from extra_funcs import *
+from move_checks import *
+from select_moves import *
+from socket_functions import *
+from valid_moves import valid_moves
+from make_move import make_move
 
 #Initial board setup
 player_turn = "b"
@@ -85,6 +85,26 @@ board_dict = {
 }
 
 
+
+server_client = ""
+while server_client.upper() not in ["SERVER", "CLIENT"]:
+    server_client = input("Is this the \"SERVER\", the \"CLIENT\": ")
+
+
+ip = input("IP Address: ")
+port = input("Port: ")
+port = int(port)
+username = input("Username: ")
+
+if server_client.upper() == "SERVER":
+    player_color = "w"
+    conn = start_server_function(ip, port, username)
+elif server_client.upper() == "CLIENT":
+    player_color = "b"
+    conn = start_client_function(ip, port, username)
+
+
+
 #Main game loop
 while True:
 
@@ -99,9 +119,19 @@ while True:
 
     draw_board(board_dict)
 
-    while True:
-        player_selection = player_select_piece(board_dict, player_turn)
-        player_move_select = player_select_move(board_dict, player_selection, player_turn)
-        if player_move_select != "null":
-            board_dict = make_move(board_dict, player_selection, player_move_select)
-            break
+    if player_turn == player_color:
+        
+        while True:
+            
+            player_selection = player_select_piece(board_dict, player_turn)
+            player_move_select = player_select_move(board_dict, player_selection, player_turn)
+            
+            if player_move_select != "null":
+                
+                board_dict = make_move(board_dict, player_selection, player_move_select)
+                send_move(conn, player_selection, player_move_select)
+                break
+                
+    else:
+        other_move = wait_for_move(conn)
+        board_dict = make_move(board_dict, other_move[0], other_move[1])
