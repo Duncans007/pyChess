@@ -154,8 +154,6 @@ def is_player_in_checkmate(board, player):
 
 
 
-from valid_moves import *
-
 def king_safe(board, player):
     #find the king on the board
     for space, piece in board.items():
