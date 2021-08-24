@@ -87,21 +87,26 @@ board_dict = {
 
 
 server_client = ""
-while server_client.upper() not in ["SERVER", "CLIENT"]:
-    server_client = input("Is this the \"SERVER\", the \"CLIENT\": ")
+while server_client.upper() not in ["SERVER", "CLIENT", "LOCAL"]:
+    server_client = input("Is this the \"SERVER\", the \"CLIENT\", or \"LOCAL\" on the same terminal : ")
 
 
-ip = input("IP Address: ")
-port = input("Port: ")
-port = int(port)
-username = input("Username: ")
-
-if server_client.upper() == "SERVER":
+if server_client.upper() == "LOCAL":
     player_color = "w"
-    conn = start_server_function(ip, port, username)
-elif server_client.upper() == "CLIENT":
-    player_color = "b"
-    conn = start_client_function(ip, port, username)
+    local_lock = True
+else:
+    ip = input("IP Address: ")
+    port = input("Port: ")
+    port = int(port)
+    username = input("Username: ")
+    local_lock = False
+
+    if server_client.upper() == "SERVER":
+        player_color = "w"
+        conn = start_server_function(ip, port, username)
+    elif server_client.upper() == "CLIENT":
+        player_color = "b"
+        conn = start_client_function(ip, port, username)
 
 
 
@@ -118,7 +123,10 @@ while True:
         break
 
     draw_board(board_dict)
-
+    
+    if local_lock:
+        player_color = player_turn
+    
     if player_turn == player_color:
         
         while True:
