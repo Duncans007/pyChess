@@ -1,5 +1,5 @@
 from extra_funcs import *
-from select_and_make_move import *
+from move_checks import *
 
 def make_move(board, piece_location, move_to_space):
     test_board = board
