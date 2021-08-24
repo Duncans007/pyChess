@@ -1,11 +1,7 @@
-from extra_funcs import *
-from move_checks import *
-
-def make_move(board, piece_location, move_to_space):
-    test_board = board
-    test_board[move_to_space] = test_board[piece_location]
-    test_board[piece_location] = "  "
-    return test_board
+from extra_funcs import strout
+from move_checks import valid_moves, king_safe
+from valid_moves import valid_moves
+from make_move import make_move
 
 
 def player_select_move(board, piece_location, player):
