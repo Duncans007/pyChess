@@ -1,6 +1,11 @@
 from extra_funcs import strout
 import numpy as np
 
+def unique_vals(arr):
+    arr_set = set(arr)
+    unique_list = (list(arr_set))
+    return unique_list
+
 def valid_moves(board, piece_type, piece_location, player):
     move_array = []
     px = int(piece_location[0])
@@ -130,6 +135,6 @@ def valid_moves(board, piece_type, piece_location, player):
             move_array.pop(move_array.index(x))
 
     #remove non-unique values
-    move_array = np.unique(move_array)
+    move_array = unique_vals(move_array)
 
     return move_array
