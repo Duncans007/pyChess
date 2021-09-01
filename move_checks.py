@@ -1,5 +1,3 @@
-import numpy as np
-
 from extra_funcs import strout
 from make_move import make_move
 from valid_moves import valid_moves
