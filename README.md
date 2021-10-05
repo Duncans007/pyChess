@@ -1,9 +1,9 @@
 # PyChess
 
-Pychess is a fully text-based chess game in python.
+To run, use `PyChess_Interface.py`
 
-The game can be played locally using a single terminal, but also has fully configurable (ip, port) network support.
+Pychess was a fully text-based chess game in python. The text based version can still be played with no dependencies.
 
-Its only non-included dependency is Pygame, though there is support for text-based output if desired.
+Text based version can be played locally using a single terminal, or over the network by configuring ip and port settings at the top of the main file.
 
-To run, use the PyChess_Interface.py file.
+2D interface runs on Pygame.
