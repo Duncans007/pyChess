@@ -191,7 +191,7 @@ if __name__ == "__main__":
             player_selection = player_select_piece(board_dict, player_turn)
             player_move_select = player_select_move(board_dict, player_selection, player_turn)
             if player_move_select != "null":
-                # board_dict = make_move(board_dict, player_selection, player_move_select)
+                board_dict = make_move(board_dict, player_selection, player_move_select)
                 break
 
     pygame.quit()
