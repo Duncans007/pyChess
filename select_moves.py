@@ -1,4 +1,3 @@
-from extra_funcs import strout
 from move_checks import king_safe
 from valid_moves import valid_moves
 from make_move import make_move

@@ -5,7 +5,6 @@ from extra_funcs import *
 from move_checks import *
 from select_moves import *
 from socket_functions import *
-from valid_moves import valid_moves
 from make_move import make_move
 
 #Initial board setup

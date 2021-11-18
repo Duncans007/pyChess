@@ -1,5 +1,4 @@
 from extra_funcs import strout
-import numpy as np
 
 def unique_vals(arr):
     arr_set = set(arr)
