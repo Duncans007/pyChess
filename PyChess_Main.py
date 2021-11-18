@@ -136,7 +136,7 @@ while True:
             
             if player_move_select != "null":
 
-                #board_dict = make_move(board_dict, player_selection, player_move_select)
+                board_dict = make_move(board_dict, player_selection, player_move_select)
 
                 if not local_lock:
                     send_move(conn, player_selection, player_move_select)
