@@ -1,8 +1,8 @@
 from extra_funcs import strout
-from move_checks import valid_moves, king_safe
+from move_checks import , king_safe
 from valid_moves import valid_moves
 from make_move import make_move
-from pygame_funcs import click_input, update_screen
+from PyChess_Interface import click_input
 
 def player_select_move(board, piece_location, player):
     piece_type = board[piece_location][1]
